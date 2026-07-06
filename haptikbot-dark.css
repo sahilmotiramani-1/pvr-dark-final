@@ -24,36 +24,27 @@ body,
     min-height: 32px !important;
     object-fit: contain !important;
 }
+
+/* ── WIDGET SHELL (inner) ─────────────────────────────────── */
 .extended-view.active {
     background: linear-gradient(180deg, #1c1c1c 0%, #141414 100%) !important;
-    border: 1px solid rgba(239, 162, 73, 0.25) !important;
     border-radius: 20px !important;
     overflow: hidden !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    
-    /* NEW CURVED SHADOWS:
-       Layer 1: Sharp outline accent that follows the 20px curve perfectly.
-       Layer 2: Mid-range ambient curve definition.
-       Layer 3: Soft cinema ambient background glow.
-    */
-    box-shadow:
-        0 0 0 1px rgba(239, 162, 73, 0.08),
-        0 8px 16px rgba(239, 162, 73, 0.14),
-        0 16px 32px rgba(239, 162, 73, 0.08),
-        0 24px 64px rgba(0, 0, 0, 0.65) !important;
 }
-.xdk-view-wrapper, 
+
+/* ── WIDGET SHELL — GLOW (parent-page level, on the real iframe box
+   so it can actually bleed onto the surrounding window) ─────── */
+.xdk-view-wrapper,
 iframe#haptik-xdk-main-view.xdk-iframe {
-    border-radius: 20px !important;
-    overflow: visible !important; /* Crucial: Allows the shadow to leak outside the box */
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow:
+      0 0 30px rgba(255, 189, 81, 0.20),
+      0 0 70px rgba(255, 189, 81, 0.14),
+      0 0 130px rgba(248, 168, 37, 0.08) !important;
 }
-  /* border: 1px solid #FFBD51 !important; */
-  /* box-shadow:
-  0 0 30px 10px rgba(255, 203, 5, 0.18),
-  0 0 60px 20px rgba(255, 203, 5, 0.12),
-  0 0 120px 40px rgba(255, 203, 5, 0.08),
-  0 0 180px 60px rgba(255, 203, 5, 0.04) !important; */
 
 [data-testid="headerSubtitleText"]{
   color: #858585 !important;
@@ -143,6 +134,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   background-image:
     radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255, 189, 81, 0.04) 0%, transparent 70%),
     radial-gradient(ellipse 60% 30% at 80% 80%, rgba(248, 168, 37, 0.03) 0%, transparent 60%) !important;
+    box-shadow: none !important;
 }
 .hsl-button-text.message-section-message-button-text.v2 {
   background-color: #1F1F1F !important;
@@ -160,7 +152,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   background-color: #1F1F1F !important;
   color: #FFFFFF !important;
   border: 1px solid #1F1F1F !important;
-  border-radius: 4px 16px 16px 16px !important;
+  border-radius: 10px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -171,7 +163,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   background: linear-gradient(135deg, #FFBD51 0%, #F8A825 100%) !important;
   color: #161616 !important;
   border: none !important;
-  border-radius: 16px 4px 16px 16px !important;
+  border-radius: 10px !important;
   font-weight: 500 !important;
 }
 
@@ -214,18 +206,19 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 
 /* ── QUICK REPLY CHIPS ────────────────────────────────────── */
 .hsl-actionable {
-  padding: 6px 12px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 4px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background-color: #FFBD51 !important;
   border: 1px solid #FFBD51 !important;
-  /* border-radius: 20px !important; */
+  border-radius: 10px !important;
   -webkit-tap-highlight-color: #FFBD51 !important;
   transition: background-color 0.2s ease, transform 0.1s ease !important;
+  box-sizing: border-box !important;
 }
-
-/* .hsl-actionable:hover,
-.hsl-actionable:active {
-  background-color: #1F1F1F !important;
-} */
 
 .hsl-actionable:hover .hsl-actionable-text.v2,
 .hsl-actionable:active .hsl-actionable-text.v2 {
@@ -236,22 +229,17 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   color: #FFBD51 !important;
   font-family: 'Inter', sans-serif !important;
   font-weight: 600 !important;
+  padding: 0 4px !important;
 }
 
 .hsl-actionable.disabled {
   background-color: rgba(255, 189, 81, 0.4) !important;
-  border-color: rgba(255, 189, 81, 0.4) !important;
+  border: none !important;
   transition: background-color 0.6s ease !important;
   color: rgba(10, 10, 10, 0.5) !important;
   cursor: not-allowed !important;
   pointer-events: none !important;
 }
-
-/* .hsl-actionable.disabled:hover,
-.hsl-actionable.disabled:active {
-  background-color: rgba(255, 189, 81, 0.4) !important;
-  transform: none !important;
-} */
 
 .hsl-actionable.disabled .hsl-actionable-text.v2 {
   color: #858585 !important;
@@ -276,12 +264,13 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   color: #ffffff !important;
   font-family: 'Inter', sans-serif !important;
   background-color: transparent;
+  box-shadow: none !important;
   
 }
 .quick-reply-option-text:hover,
 .quick-reply-option-text.v2:hover {
   font-size: 12px !important;
-  color: #FFBD51 !important;
+  color: #fba825 !important;
   
   font-family: 'Inter', sans-serif !important;
   background-color: transparent;
@@ -291,6 +280,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .quick-reply-option{
   background-color: #161616 !important;
   border: 1px solid #666666 !important;
+  border-radius: 10px !important;
 }
 .quick-reply-option:hover{
   background-color: #161616 !important;
@@ -315,7 +305,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
     width: 130px !important;
     background-color: #1F1F1F !important;
     border: 1px solid #1F1F1F !important;
-    border-radius: 12px !important;
+    border-radius: 10px !important;
 
     display: 10px !important;
     flex-direction: column !important;
@@ -329,7 +319,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .hsl-actionable.message-section-message-button-actionable.disabled:active {
   background-color: rgba(255, 189, 81, 0.4) !important;
   color: #858585 !important;
-  /* border-color: rgba(255,255,255,.08) !important; */
+  border: none !important;
   pointer-events: none !important;
   transform: none !important;
 }
@@ -418,15 +408,18 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 }
 /* Carousel CTA button */
 .hsl-carousel-element.hsl-carousel-elements-item .hsl-actionables  {
-  flex-direction: column;
+  flex-direction: column !important;
+  gap: 4px !important;
   transition: background-color 0.2s ease !important;
   /* background-color: rgba(255, 189, 81, 0.4) !important; */
   color: #858585 !important;
 }
 .hsl-actionable.message-section-message-button-actionable {
+  height: 36px !important;
+  min-height: 36px !important;
   background-color: #FFBD51  !important;
   color: #0A0A0A !important;
-  border-radius: 12px !important;
+  border-radius: 10px !important;
   border: 1px solid #1F1F1F !important;
   box-shadow: 0 4px 12px rgba(248, 168, 37, 0.25) !important;
 }
@@ -444,14 +437,8 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   font-weight: 600 !important;
 }
 
-/* .hsl-carousel-element .hsl-actionable {
-    margin-left: 15% !important;
-    width: 70% !important;
-} */
-
 .hsl-carousel-element.hsl-carousel-elements-item  .hsl-actionable.disabled,
  .hsl-actionable.disabled .hsl-actionable-text.v2 {
-  /* background-color: rgba(255, 189, 81, 0.4) !important; */
   color: #858585 !important;
   border-color: #1F1F1F !important;
 }
@@ -474,7 +461,6 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .hsl-carousel-element .hsl-actionable:focus {
   background-color: #FFBD51 !important;
   color: #0A0A0A !important;
-  /* border-radius: 20px !important; */
   transform: none !important;
   box-shadow: none !important;
 }
@@ -487,7 +473,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .hsl.form {
   background: #1A1A1A !important;
   border: 1.8px solid rgba(239,162,73,.2) !important;
-  border-radius: 11px !important;
+  border-radius: 10px !important;
   box-shadow: 0 8px 24px rgba(0,0,0,.35) !important;
 }
 
@@ -517,20 +503,19 @@ iframe#haptik-xdk-main-view.xdk-iframe {
     box-sizing: border-box !important;
 }
 .hsl-form-element:hover {
-  border-color: #EFA249 !important;
-  box-shadow: 0 0 12px rgba(239, 162, 73, 0.12) !important;
+  border:1px solid #353535 !important;
 }
 
 
 .hsl-form-element:focus-within {
-  border-color: #FFBD51 !important;
-  box-shadow: 0 0 0 2px rgba(255,189,81,.15) !important;
+  border: 1px solid #353535 !important;
 }
 .hsl-form-element-icon-s3 {
   background: rgba(239,162,73,.12) !important;
   border-radius: 8px !important;
   padding: 6px !important;
   color: #EFA249 !important;
+  
 }
 .hsl-form-element {
   position: relative !important;
@@ -543,7 +528,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   top: 50%;
   transform: translateY(-50%);
   color: #EFA249;
-  font-size: 25px !important;
+  font-size: 30px !important;
   font-weight: 500 !important;
   pointer-events: none;
 }
@@ -639,14 +624,13 @@ iframe#haptik-xdk-main-view.xdk-iframe {
   background-color: #FFBD51 !important;
   color: #0A0A0A !important;
   border: 2.5px solid #1F1F1F !important;
-  border-radius: 12px !important;
+  border-radius: 10px !important;
   box-shadow: 0 4px 12px rgba(248, 168, 37, 0.25) !important;
   transition: background-color 0.2s ease !important;
 }
 
 .hsl.form .hsl-form-button.submitted {
   background-color: rgba(255, 189, 81, 0.4) !important;
-  border-color: rgba(255, 189, 81, 0.4) !important;
   color: #858585 !important;
   box-shadow: none !important;
   cursor: not-allowed !important;
@@ -661,7 +645,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .hsl-form-button.active {
   background-color: #FFBD51 !important;
   border: 1px solid #1F1F1F !important;
-  border-radius: 8px !important;
+  border-radius: 10px !important;
   -webkit-tap-highlight-color: #FFBD51 !important;
   transition: background-color 0.2s ease !important;
 }
@@ -682,7 +666,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
     height: auto !important;
     padding: 12px 16px !important;
     margin: 12px 12px 12px 12px !important;
-    border-radius: 12px !important;
+    border-radius: 10px !important;
 }
 .hsl-form-title.v2{
   margin-right: 6px !important;
@@ -701,7 +685,6 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .composerv2,
 [class*="composerv2"]:not([class*="text"]):not([class*="area"]) {
   background-color: #161616 !important;
-  /* border-top: 1px solid #1F1F1F !important; */
 }
 .composerv2-wrapper-voice.v2{
   background-color: #161616 !important;
@@ -756,14 +739,13 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 /* Send button */
 .composerv2-send-button,
 [class*="send-button"] {
-  /* background: linear-gradient(135deg, #FFBD51 0%, #F8A825 100%) !important; */
   border-radius: 50% !important;
   transition: transform 0.15s ease, box-shadow 0.15s ease !important;
 }
 .hsl-actionable.undefined.disabled{
   background-color: #161616 !important;
   color: #ffffff !important;
-  border-color: rgba(255,255,255,.08) !important;
+  border: none !important;
   pointer-events: none !important;
   transform: none !important;
 }
@@ -772,7 +754,6 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 [class*="send-button"]:hover {
   transform: scale(1.08) !important;
   background-color: #FFBD51 !important;
-  /* box-shadow: 0 4px 16px rgba(255, 189, 81, 0.4) !important; */
 }
 
 .composerv2-send-button svg path,
@@ -845,6 +826,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 }
 .task-new-title{
   color:#FFFFFF !important;
+  font-weight: 300 !important;
 }
 .task-new-title:hover{
   color:#FFBD51 !important;
@@ -854,6 +836,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
     color: #FFFFFF !important;
     border-color: #1F1F1F !important;
     border: 1px solid #1F1F1F !important;
+    border-radius: 10px !important;
 }
 
 .hsl-button.message-section-message-button:hover {
@@ -898,18 +881,16 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 /* Book button */
 .hsl-actionables .hsl-actionable:first-child {
     background-color: #FFBD51 !important;
-    border: 1px solid #FFBD51 !important;
-    border-radius: 12px !important;
+    border-radius: 10px !important;
 }
 
 .hsl-actionables .hsl-actionable:first-child .hsl-actionable-text.v2 {
     color: #161616 !important;
 }
 
-/* Trailer text only */
+/* Trailer button */
 .hsl-actionables .hsl-actionable:nth-child(2) {
     background: transparent !important;
-    border: none !important;
     box-shadow: none !important;
 }
 
@@ -920,7 +901,7 @@ iframe#haptik-xdk-main-view.xdk-iframe {
 .hsl-actionable:first-child.disabled,
 .hsl-actionable.message-section-message-button-actionable:first-child.disabled {
     background: rgba(255, 189, 81, 0.4) !important;
-    border: 1px solid rgba(255, 189, 81, 0.4) !important;
+    border: none !important;
 }
 
 .hsl-actionable:first-child.disabled .hsl-actionable-text.v2,
@@ -1012,8 +993,8 @@ rect#Rectangle{
     font-size: 12px !important;
 }
 .hsl-form-element {
-    background-color: #1F1F1F !important;
-    border: 1px solid #353535 !important;
+    background-color: #1a1a1a !important;
+    border: 1.5px solid #3a3a3a !important;
     border-radius: 10px !important;
     min-height: 40px !important;
     height: 40px !important;
@@ -1055,18 +1036,69 @@ div.hsl-form-element {
 .hsl-carousel-element .hsl-actionables {
   margin-left: 8px  !important;
   margin-right: 8px !important;
+  margin-bottom: 3px !important;
 }
 .hsl-actionables.message-section-message-button-actionables{
-  margin-left: 8px !important;
-  margin-right: 8px !important;
+  margin: 8px 12px 12px 12px !important;
+}
+.hsl-form-element-icon-s3 {
+    display: none;
+}
+
+/* ── BUTTON SPACING (Book / Trailer / other actionables) ──── */
+.hsl-actionables,
+.hsl-actionables.message-section-message-button-actionables,
+.hsl-carousel-element .hsl-actionables {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  padding-bottom: 3px !important;
+}
+/* ── TIMESTAMP SPACING ────────────────────────────────────── */
+.message-timestamp {
+  margin: 4px 0 8px !important;
+  padding: 0 4px !important;
+}
+
+.message-timestamp {
+  margin-top: 4px !important;
   margin-bottom: 8px !important;
 }
-    /* padding: 8px 12px !important;
-    font-size: 12px !important;
-    font-family: 'Inter', sans-serif !important;
-    background-color: #FFBD51 !important;
-    color: #0A0A0A !important;
-    border: 2.5px solid #1F1F1F !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(248, 168, 37, 0.25) !important;
-    transition: background-color 0.2s ease !important; */
+
+/* ── TYPING INDICATOR — hide when a real message follows ───── */
+.message-section-messages:has(.message-section-message-row.from-business)
+[class*="typing-indicator"],
+.message-section-messages:has(.message-section-message-row.from-business)
+[class*="loading"] {
+  display: none !important;
+}
+.hsl-actionable.message-section-message-button-actionable {
+    border:none !important;
+}
+.hsl-form-button.submitted {
+  border: none !important;
+}
+.hsl-actionable:first-child.disabled, .hsl-actionable.message-section-message-button-actionable:first-child.disabled{
+  border: none !important;
+}
+.taskbox-new-CTA{
+  border-top:0.5px solid #1f1f1f !important;
+}
+.message-section-messages {
+    margin-top: auto !important;
+    padding: 0 8px 32px !important;
+    transform: translateY(0) !important;
+    transition: 0.4s ease-out !important;
+    margin-bottom: auto !important;
+}
+.extended-view{
+      width: calc(100vw - 0px) !important;
+      margin: 0 !important;
+      margin-left: 0px !important;
+      margin-bottom: 0px !important;
+      height: calc(100vh - 0px) !important;
+}
+iframe#haptik-xdk-main-view {
+    width: 397px !important;
+    height: 535.28px !important;
+}
